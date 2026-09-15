@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ოქროს თასი • რესტორანი & ლაუნჯი</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=FiraGO:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --gold: #d4af37;
+      --gold-light: #f3e5ab;
+      --gold-gradient: linear-gradient(135deg, #d4af37 0%, #edd892 50%, #aa820a 100%);
+      --bg-dark: #0c0d10;
+      --bg-card: #15171e;
+      --text-light: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: rgba(212, 175, 55, 0.2);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'FiraGO', sans-serif;
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      background: #08080a;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 8px 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .top-bar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .top-bar a { color: var(--gold); text-decoration: none; }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(12, 13, 16, 0.94);
+      backdrop-filter: blur(14px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .brand i { font-size: 1.8rem; color: var(--gold); }
+    .brand-text h2 { font-size: 1.3rem; font-weight: 800; letter-spacing: 1px; }
+    .brand-text span { font-size: 0.7rem; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; display: block; }
+
+    .nav-links { display: flex; list-style: none; gap: 24px; }
+    .nav-links a { color: #e2e8f0; text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--gold); }
+
+    .btn-gold {
+      background: var(--gold-gradient);
+      color: #000;
+      font-weight: 700;
+      padding: 11px 26px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5); }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      padding: 90px 0 70px;
+      background: linear-gradient(rgba(12, 13, 16, 0.8), rgba(12, 13, 16, 0.9)), 
+                  url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      background: rgba(212, 175, 55, 0.08);
+    }
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 20px;
+      max-width: 880px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero h1 span {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: #cbd5e1;
+      max-width: 680px;
+      margin: 0 auto 30px;
+    }
+
+    /* Menu Section */
+    .menu-section {
+      padding: 80px 0 100px;
+      background: #0d0f14;
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .section-title span {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .section-title h2 { font-size: 2.5rem; font-weight: 800; }
+
+    /* Category Filter Tabs */
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 45px;
+    }
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      padding: 10px 22px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    .tab-btn:hover, .tab-btn.active {
+      background: var(--gold);
+      color: #000;
+      border-color: var(--gold);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    /* Menu Grid with Food Photos */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 24px;
+    }
+    .menu-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 18px;
+      padding: 18px;
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .menu-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    }
+    .menu-card img {
+      width: 105px;
+      height: 105px;
+      border-radius: 14px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+    .menu-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+    .menu-header h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .menu-price {
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 1.2rem;
+      white-space: nowrap;
+      margin-left: 8px;
+    }
+    .menu-info p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }
+    .item-tag {
+      align-self: flex-start;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    /* Luxury Booking Section */
+    .booking-section {
+      padding: 100px 0;
+      background: radial-gradient(circle at center, #1b1e28 0%, #0c0d10 80%);
+      border-top: 1px solid var(--border);
+    }
+    .booking-box {
+      background: rgba(21, 23, 30, 0.95);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 50px 40px;
+      max-width: 900px;
+      margin: 0 auto;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    }
+    .booking-box h2 {
+      text-align: center;
+      font-size: 2.3rem;
+      margin-bottom: 12px;
+    }
+    .booking-box p {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+    }
+    .booking-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form-group label {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+    .form-group input, 
+    .form-group select {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 13px 16px;
+      border-radius: 10px;
+      color: #fff;
+      font-family: inherit;
+    }
+    .form-group select option { background: #15171e; color: #fff; }
+    .form-group input:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .form-full { grid-column: span 2; }
+
+    /* Footer */
+    footer {
+      background: #08080a;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 60px 0 30px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-col h4 {
+      color: var(--gold);
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+    .footer-col p {
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+    .social-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .social-links a:hover {
+      background: var(--gold);
+      color: #000;
+    }
+    .copyright {
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 24px;
+      color: #64748b;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 850px) {
+      .hero h1 { font-size: 2.2rem; }
+      .menu-grid, .booking-form, .footer-grid { grid-template-columns: 1fr; }
+      .form-full { grid-column: span 1; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div>
+        <i class="fa-solid fa-location-dot" style="color:var(--gold);"></i> რუსთაველის გამზ. 42, თბილისი &nbsp;|&nbsp;
+        <i class="fa-solid fa-clock" style="color:var(--gold);"></i> 12:00 - 02:00
+      </div>
+      <div>
+        <i class="fa-solid fa-phone" style="color:var(--gold);"></i> დაგვიკავშირდით: <a href="tel:+995599123456">+995 599 12 34 56</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="container navbar">
+      <a href="#" class="brand">
+        <i class="fa-solid fa-crown"></i>
+        <div class="brand-text">
+          <h2>ოქროს თასი</h2>
+          <span>RESTAURANT & LOUNGE</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#menu">მენიუ</a></li>
+        <li><a href="#booking">დაჯავშნა</a></li>
+        <li><a href="#contact">კონტაქტი</a></li>
+      </ul>
+
+      <a href="#booking" class="btn-gold">
+        <i class="fa-regular fa-calendar-check"></i> მაგიდის დაჯავშნა
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">დაუვიწყარი გასტრონომია</div>
+      <h1>ნამდვილი გემო და <span>სამეფო ატმოსფერო</span></h1>
+      <p>ავთენტური ქართული და ევროპული კერძები, შეფ-მზარეულის საავტორო რეცეპტები და მდიდარი ღვინის მარანი.</p>
+      <a href="#menu" class="btn-gold"><i class="fa-solid fa-utensils"></i> მენიუს დათვალიერება</a>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section class="menu-section" id="menu">
+    <div class="container">
+      <div class="section-title">
+        <span>რჩეული კერძები</span>
+        <h2>შეფის საავტორო მენიუ</h2>
+      </div>
+
+      <!-- Categories Tabs -->
+      <div class="menu-tabs">
+        <button class="tab-btn active" onclick="filterMenu('all', this)">ყველა კერძი</button>
+        <button class="tab-btn" onclick="filterMenu('meat', this)">ხორცი & მწვადი</button>
+        <button class="tab-btn" onclick="filterMenu('fish', this)">თევზეული</button>
+        <button class="tab-btn" onclick="filterMenu('bakery', this)">ცომეული</button>
+        <button class="tab-btn" onclick="filterMenu('starters', this)">წასახემსებელი & სალათი</button>
+        <button class="tab-btn" onclick="filterMenu('dessert', this)">დესერტი & ღვინო</button>
+      </div>
+
+      <!-- Cards Grid with Images -->
+      <div class="menu-grid">
+
+        <!-- MEAT ITEMS -->
+        <div class="menu-card" data-category="meat">
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=300&auto=format&fit=crop" alt="ხბოს მწვადი">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>ხბოს მწვადი ნაკვერჩხალზე</h4>
+              <span class="menu-price">34 ₾</span>
+            </div>
+            <p>ნაზი ხბოს რბილი ხორცი, ხახვით, ლავაშითა და საფირმო ტყემლით.</p>
+            <span class="item-tag">შეფის რეკომენდაცია</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="meat">
+          <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=300&auto=format&fit=crop" alt="ღორის მწვადი">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>ღორის მწვადი (კარეიკა)</h4>
+              <span class="menu-price">25 ₾</span>
+            </div>
+            <p>ვაზის რქაზე შემწვარი წვნიანი მწვადი წითელი ხახვითა და კოწახურით.</p>
+            <span class="item-tag">ტრადიციული</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="meat">
+          <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=300&auto=format&fit=crop" alt="რიბაი სტეიკი">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>რიბაი სტეიკი როზმარინით</h4>
+              <span class="menu-price">65 ₾</span>
+            </div>
+            <p>პრემიუმ ხარისხის საქონლის სტეიკი გრილზე, კარაქითა და ასპარაგუსით.</p>
+            <span class="item-tag">პრემიუმი</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="meat">
+          <img src="https://images.unsplash.com/photo-1598103442097-8b74394b95c6?q=80&w=300&auto=format&fit=crop" alt="შქმერული">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>შქმერული სოფლის ქათმით</h4>
+              <span class="menu-price">36 ₾</span>
+            </div>
+            <p>შებრაწული ქათამი კეცზე ნაღებისა და ნივრის არომატულ სოუსში.</p>
+            <span class="item-tag">ჰიტი</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="meat">
+          <img src="https://images.unsplash.com/photo-1529042410759-befb1204b468?q=80&w=300&auto=format&fit=crop" alt="ქაბაბი">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>ქაბაბი ლავაშში</h4>
+              <span class="menu-price">19 ₾</span>
+            </div>
+            <p>საქონლისა და ღორის ხორცის ქაბაბი შეზავებული ქართული სუნელებით.</p>
+            <span class="item-tag">საფირმო</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="meat">
+          <img src="https://images.unsplash.com/photo-1541832676-9b763b0239ab?q=80&w=300&auto=format&fit=crop" alt="ოჯახური">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>ოჯახური ღორის ხორცით</h4>
+              <span class="menu-price">24 ₾</span>
+            </div>
+            <p>ოქროსფრად შემწვარი კარტოფილი, ხორცი, ხახვი და ახალი მწვანილი.</p>
+            <span class="item-tag">ცხელი კერძი</span>
+          </div>
+        </div>
+
+        <!-- FISH ITEMS -->
+        <div class="menu-card" data-category="fish">
+          <img src="https://images.unsplash.com/photo-1608897013039-887f21d8c804?q=80&w=300&auto=format&fit=crop" alt="ორაგულის სტეიკი">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>ორაგულის სტეიკი გრილზე</h4>
+              <span class="menu-price">42 ₾</span>
+            </div>
+            <p>ატლანტიკური ორაგული ლიმონ-კარაქის სოუსითა და ბროკოლით.</p>
+            <span class="item-tag">ზღვის პროდუქტი</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="fish">
+          <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=300&auto=format&fit=crop" alt="მთის კალმახი">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>მთის კალმახი ბროწეულში</h4>
+              <span class="menu-price">27 ₾</span>
+            </div>
+            <p>ტაფაზე შებრაწული ახალი კალმახი ნარშარაბის წვენითა და მწვანილით.</p>
+            <span class="item-tag">ავთენტური</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="fish">
+          <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?q=80&w=300&auto=format&fit=crop" alt="დორადო">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>დორადო გამომცხვარი</h4>
+              <span class="menu-price">39 ₾</span>
+            </div>
+            <p>მთლიანი დორადო ღუმელში ჩერი პომიდვრითა და როზმარინით.</p>
+            <span class="item-tag">ევროპული</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="fish">
+          <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?q=80&w=300&auto=format&fit=crop" alt="კრევეტები">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>სამეფო კრევეტები ნივრით</h4>
+              <span class="menu-price">35 ₾</span>
+            </div>
+            <p>კრევეტები თეთრ ღვინოსა და ცხარე ჩილიში მომზადებული.</p>
+            <span class="item-tag">დელიკატესი</span>
+          </div>
+        </div>
+
+        <!-- BAKERY ITEMS -->
+        <div class="menu-card" data-category="bakery">
+          <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=300&auto=format&fit=crop" alt="აჭარული">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>სამეფო აჭარული ხაჭაპური</h4>
+              <span class="menu-price">22 ₾</span>
+            </div>
+            <p>ხრაშუნა ცომი, უხვი იმერული და სულგუნი, ერბო და კვერცხის გული.</p>
+            <span class="item-tag">ლეგენდარული</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="bakery">
+          <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=300&auto=format&fit=crop" alt="მეგრული ხაჭაპური">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>მეგრული ხაჭაპური ორმაგი ყველით</h4>
+              <span class="menu-price">24 ₾</span>
+            </div>
+            <p>ყველი შიგნით და ზემოდან ოქროსფრად დაბრაწული მეგრული სულგუნი.</p>
+            <span class="item-tag">ჰიტი</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="bakery">
+          <img src="https://images.unsplash.com/photo-1509722747041-616f39b57569?q=80&w=300&auto=format&fit=crop" alt="ლობიანი">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>ლობიანი რაჭული ლორით</h4>
+              <span class="menu-price">20 ₾</span>
+            </div>
+            <p>რაჭული შებოლილი ლორითა და ქონდრით შეზავებული ლობიო.</p>
+            <span class="item-tag">რაჭული</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="bakery">
+          <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=300&auto=format&fit=crop" alt="კუბდარი">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>სვანური კუბდარი ხბოს ხორცით</h4>
+              <span class="menu-price">23 ₾</span>
+            </div>
+            <p>ხელით დაკეპილი ხბოს ხორცი, გიშრულითა და სვანური მარილით.</p>
+            <span class="item-tag">სვანური</span>
+          </div>
+        </div>
+
+        <!-- STARTERS & SALADS -->
+        <div class="menu-card" data-category="starters">
+          <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=300&auto=format&fit=crop" alt="ფხალის ასორტი">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>ფხალის ასორტი მჭადებით</h4>
+              <span class="menu-price">22 ₾</span>
+            </div>
+            <p>ისპანახი, ჭარხალი და ბადრიჯანი ნიგვზითა და ბროწეულის მარცვლებით.</p>
+            <span class="item-tag">ტრადიციული</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="starters">
+          <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=300&auto=format&fit=crop" alt="ქართული სალათი">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>ქართული სალათი კახური ზეთით</h4>
+              <span class="menu-price">15 ₾</span>
+            </div>
+            <p>კიტრი, პომიდორი, რეჰანი, წიწაკა და არარაფინირებული კახური ზეთი.</p>
+            <span class="item-tag">ჯანსაღი</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="starters">
+          <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=300&auto=format&fit=crop" alt="ყველის დაფა">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>ქართული ყველის დაფა</h4>
+              <span class="menu-price">28 ₾</span>
+            </div>
+            <p>იმერული, სულგუნი, შებოლილი, დამბალხაჭო და ალპური თაფლი.</p>
+            <span class="item-tag">ასორტი</span>
+          </div>
+        </div>
+
+        <!-- DESSERT & DRINKS -->
+        <div class="menu-card" data-category="dessert">
+          <img src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?q=80&w=300&auto=format&fit=crop" alt="შოკოლადის ფონდანი">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>შოკოლადის ფონდანი ნაყინით</h4>
+              <span class="menu-price">18 ₾</span>
+            </div>
+            <p>ბელგიური მუქი შოკოლადის გული, ვანილის ნაყინი და ჟოლო.</p>
+            <span class="item-tag">დესერტი</span>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="dessert">
+          <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=300&auto=format&fit=crop" alt="ღვინო">
+          <div class="menu-info">
+            <div class="menu-header">
+              <h4>საფირმო საფერავი (ქვევრი)</h4>
+              <span class="menu-price">55 ₾</span>
+            </div>
+            <p>კახური ტრადიციული წითელი მშრალი ღვინო, 3 წლიანი დაძველებით.</p>
+            <span class="item-tag">პრემიუმ ღვინო</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Luxury Booking Form -->
+  <section class="booking-section" id="booking">
+    <div class="container">
+      <div class="booking-box">
+        <h2>დაჯავშნეთ მაგიდა წინასწარ</h2>
+        <p>შეავსეთ მარტივი ფორმა და ჩვენი ადმინისტრატორი 5 წუთში დაგიდასტურებთ რეზერვაციას.</p>
+
+        <form class="booking-form" onsubmit="event.preventDefault(); alert('თქვენი მაგიდა წარმატებით დაიჯავშნა! მალე დაგიკავშირდებით.');">
+          <div class="form-group">
+            <label>სრული სახელი</label>
+            <input type="text" placeholder="გიორგი ბერიძე" required>
+          </div>
+
+          <div class="form-group">
+            <label>ტელეფონის ნომერი</label>
+            <input type="tel" placeholder="+995 599 00 00 00" required>
+          </div>
+
+          <div class="form-group">
+            <label>სტუმრების რაოდენობა</label>
+            <select>
+              <option>2 სტუმარი (რომანტიული)</option>
+              <option>3 - 5 სტუმარი (მეგობრული)</option>
+              <option>6 - 10 სტუმარი (დიდი სუფრა)</option>
+              <option>10+ სტუმარი (კორპორატიული / ბანკეტი)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>თარიღი და დრო</label>
+            <input type="datetime-local" required>
+          </div>
+
+          <div class="form-group form-full">
+            <label>დამატებითი სურვილები (სურვილისამებრ)</label>
+            <input type="text" placeholder="მაგ: მაგიდა ფანჯარასთან, ცოცხალ მუსიკასთან ახლოს...">
+          </div>
+
+          <div class="form-group form-full" style="margin-top: 10px;">
+            <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; padding: 16px; font-size: 1.05rem;">
+              <i class="fa-solid fa-check"></i> დაჯავშნის დადასტურება
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>ოქროს თასი • RESTAURANT & LOUNGE</h4>
+          <p>ადგილი, სადაც ყოველი სტუმარი სასურველი და განსაკუთრებულია. გელით მყუდრო გარემოში უგემრიელესი კერძებით.</p>
+          <div class="social-links">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>სამუშაო საათები</h4>
+          <p>ორშაბათი - ხუთშაბათი: 12:00 - 00:00</p>
+          <p>პარასკევი - კვირა: 12:00 - 02:00</p>
+          <p style="color: var(--gold);">ცოცხალი მუსიკა: 20:00 - 23:30</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>კონტაქტი</h4>
+          <p><i class="fa-solid fa-phone" style="color:var(--gold);"></i> +995 599 12 34 56</p>
+          <p><i class="fa-solid fa-envelope" style="color:var(--gold);"></i> info@goldencup.ge</p>
+          <p><i class="fa-solid fa-location-dot" style="color:var(--gold);"></i> თბილისი, რუსთაველის 42</p>
+        </div>
+      </div>
+
+      <div class="copyright">
+        © 2026 რესტორანი „ოქროს თასი“. დამზადებულია Geo Web Craft-ის მიერ.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Filter JavaScript -->
+  <script>
+    function filterMenu(cat, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.menu-card').forEach(card => {
+        if (cat === 'all' || card.getAttribute('data-category') === cat) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
